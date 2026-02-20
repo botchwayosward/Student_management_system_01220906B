@@ -12,23 +12,32 @@ public class StudentService {
     }
 
     public void registerStudent(Student student, Scanner scanner) {
-        double gpa = student.getGpa();
+        double currentGpa = student.getGpa();
 
-        while (gpa < 0.0 || gpa > 4.0) {
-            System.out.println("\n[VALIDATION ERROR]: GPA " + gpa + " is invalid.");
-            System.out.print("Please enter a valid GPA between 0.0 and 4.0: ");
+        // If the initial GPA is invalid, start the loop
+        if (currentGpa < 0.0 || currentGpa > 4.0) {
+            while (currentGpa < 0.0 || currentGpa > 4.0) {
+                System.out.println("\n[VALIDATION ERROR]: " + currentGpa + " is not allowed.");
+                System.out.print("Please enter a valid GPA (0.0 - 4.0): ");
 
-            if (scanner.hasNextDouble()) {
-                gpa = scanner.nextDouble();
-            } else {
-                System.out.println("Please enter a numeric value.");
-                scanner.next(); // Clear invalid input
+                if (scanner.hasNextDouble()) {
+                    currentGpa = scanner.nextDouble();
+                    scanner.nextLine(); // THE FIX: Clear the "Enter" key from memory
+                } else {
+                    System.out.println("Numbers only, please!");
+                    scanner.next(); // Clear bad text
+                }
             }
         }
 
-        student.setGpa(gpa);
+        // IMPORTANT: We update the student object with the NEW GPA you just typed
+        student.setGpa(currentGpa);
 
+        // Now we save the UPDATED student
         repository.saveStudent(student);
-        System.out.println("\nSuccess: Student data validated and saved to database.");
+    }
+
+    public void displayAllStudents() {
+        repository.getAllStudents();
     }
 }
