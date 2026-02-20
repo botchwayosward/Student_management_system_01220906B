@@ -15,14 +15,16 @@ public class Main {
             System.out.println("1. Register New Student");
             System.out.println("2. View All Students");
             System.out.println("3. Search Student by ID");
-            System.out.println("4. Exit");
+            System.out.println("4. Delete Student Record");
+            System.out.println("5. Update Student Level/GPA");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
                 scanner.nextLine();
             } else {
-                System.out.println("Invalid input. Please enter a number (1-4).");
+                System.out.println("Invalid input. Please enter a number (1-6).");
                 scanner.next();
                 continue;
             }
@@ -50,12 +52,34 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.print("Enter the Student ID to search for: ");
-                    String searchId = scanner.nextLine();
-                    studentService.searchStudent(searchId);
+                    System.out.print("Enter Student ID to search: ");
+                    studentService.searchStudent(scanner.nextLine());
                     break;
 
                 case 4:
+                    System.out.print("Enter Student ID to DELETE: ");
+                    String idToDelete = scanner.nextLine();
+                    System.out.print("Confirm deletion? (yes/no): ");
+                    if(scanner.nextLine().equalsIgnoreCase("yes")) {
+                        studentService.removeStudent(idToDelete);
+                    }
+                    break;
+
+                case 5:
+                    System.out.print("Enter Student ID to Update: ");
+                    String idToUpdate = scanner.nextLine();
+
+                    System.out.print("Enter New Level: ");
+                    int newLevel = scanner.nextInt();
+
+                    System.out.print("Enter New GPA: ");
+                    double newGpa = scanner.nextDouble();
+                    scanner.nextLine(); // Clear buffer
+
+                    studentService.modifyStudent(idToUpdate, newLevel, newGpa);
+                    break;
+
+                case 6:
                     System.out.println("Exiting system... Goodbye!");
                     break;
 
@@ -63,7 +87,7 @@ public class Main {
                     System.out.println("Invalid choice.");
             }
 
-        } while (choice != 4);
+        } while (choice != 6);
 
         scanner.close();
     }

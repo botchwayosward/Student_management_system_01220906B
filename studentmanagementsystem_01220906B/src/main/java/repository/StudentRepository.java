@@ -75,7 +75,6 @@ public class StudentRepository {
         }
     }
 
-    // NEW METHOD: Find a specific student
     public void getStudentById(String id) {
         String sql = "SELECT * FROM students WHERE studentId = ?";
 
@@ -90,12 +89,54 @@ public class StudentRepository {
                 System.out.println("ID: " + rs.getString("studentId"));
                 System.out.println("Name: " + rs.getString("fullName"));
                 System.out.println("Programme: " + rs.getString("programme"));
+                System.out.println("Level: " + rs.getInt("level"));
                 System.out.println("GPA: " + rs.getDouble("gpa"));
             } else {
                 System.out.println("\n[NOT FOUND]: No student with ID " + id);
             }
         } catch (SQLException e) {
             System.out.println("Error searching for student: " + e.getMessage());
+        }
+    }
+
+    public void deleteStudent(String id) {
+        String sql = "DELETE FROM students WHERE studentId = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+            int rowsDeleted = pstmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                System.out.println("\n[SUCCESS]: Student with ID " + id + " was deleted.");
+            } else {
+                System.out.println("\n[ERROR]: No student found with ID " + id);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error deleting student: " + e.getMessage());
+        }
+    }
+
+    // NEW METHOD: Update Student
+    public void updateStudent(String id, int newLevel, double newGpa) {
+        String sql = "UPDATE students SET level = ?, gpa = ? WHERE studentId = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, newLevel);
+            pstmt.setDouble(2, newGpa);
+            pstmt.setString(3, id);
+
+            int rowsUpdated = pstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("\n[SUCCESS]: Student updated successfully!");
+            } else {
+                System.out.println("\n[ERROR]: Student not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating student: " + e.getMessage());
         }
     }
 }
