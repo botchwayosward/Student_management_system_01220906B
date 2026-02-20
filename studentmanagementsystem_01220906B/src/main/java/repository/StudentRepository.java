@@ -29,7 +29,6 @@ public class StudentRepository {
         }
     }
 
-    // This is the method the Service is looking for!
     public void saveStudent(Student student) {
         String sql = "INSERT INTO students(studentId, fullName, programme, level, gpa, email, phoneNumber, status, dateAdded) VALUES(?,?,?,?,?,?,?,?,?)";
 
@@ -47,9 +46,9 @@ public class StudentRepository {
             pstmt.setString(9, student.getDateAdded() != null ? student.getDateAdded().toString() : "N/A");
 
             pstmt.executeUpdate();
-            System.out.println("Student saved successfully to database!");
+            System.out.println("\n[SUCCESS]: Student saved to database!");
         } catch (SQLException e) {
-            System.out.println("Error saving student: " + e.getMessage());
+            System.out.println("\n[ERROR]: Could not save student. (Maybe ID already exists?)");
         }
     }
 
@@ -61,14 +60,14 @@ public class StudentRepository {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             System.out.println("\n--- Registered Students List ---");
-            System.out.printf("%-15s | %-20s | %-5s | %-5s%n", "ID", "Name", "Level", "GPA");
-            System.out.println("------------------------------------------------------------");
+            System.out.printf("%-15s | %-20s | %-15s | %-5s%n", "ID", "Name", "Prog", "GPA");
+            System.out.println("------------------------------------------------------------------");
 
             while (rs.next()) {
-                System.out.printf("%-15s | %-20s | %-5s | %-5.2f%n",
+                System.out.printf("%-15s | %-20s | %-15s | %-5.2f%n",
                         rs.getString("studentId"),
                         rs.getString("fullName"),
-                        rs.getInt("level"),
+                        rs.getString("programme"),
                         rs.getDouble("gpa"));
             }
         } catch (SQLException e) {
