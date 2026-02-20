@@ -46,9 +46,9 @@ public class StudentRepository {
             pstmt.setString(9, student.getDateAdded() != null ? student.getDateAdded().toString() : "N/A");
 
             pstmt.executeUpdate();
-            System.out.println("\n[SUCCESS]: Student saved to database!");
+            System.out.println("\n[SUCCESS]: Student saved successfully!");
         } catch (SQLException e) {
-            System.out.println("\n[ERROR]: Could not save student. (Maybe ID already exists?)");
+            System.out.println("\n[ERROR]: Could not save student. (ID might already exist)");
         }
     }
 
@@ -72,6 +72,30 @@ public class StudentRepository {
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving students: " + e.getMessage());
+        }
+    }
+
+    // NEW METHOD: Find a specific student
+    public void getStudentById(String id) {
+        String sql = "SELECT * FROM students WHERE studentId = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                System.out.println("\n--- Student Found ---");
+                System.out.println("ID: " + rs.getString("studentId"));
+                System.out.println("Name: " + rs.getString("fullName"));
+                System.out.println("Programme: " + rs.getString("programme"));
+                System.out.println("GPA: " + rs.getDouble("gpa"));
+            } else {
+                System.out.println("\n[NOT FOUND]: No student with ID " + id);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error searching for student: " + e.getMessage());
         }
     }
 }
