@@ -12,40 +12,36 @@ public class StudentService {
     }
 
     public void registerStudent(Student student, Scanner scanner) {
-        double currentGpa = student.getGpa();
-        while (currentGpa < 0.0 || currentGpa > 4.0) {
-            System.out.print("Enter Student GPA (0.0 - 4.0): ");
-            if (scanner.hasNextDouble()) {
-                currentGpa = scanner.nextDouble();
-                scanner.nextLine();
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next();
-            }
+        double g = student.getGpa();
+        while (g < 0.0 || g > 4.0) {
+            System.out.print("Valid GPA Required (0.0 - 4.0): ");
+            if (scanner.hasNextDouble()) { g = scanner.nextDouble(); scanner.nextLine(); }
+            else { scanner.next(); }
         }
-        student.setGpa(currentGpa);
+        student.setGpa(g);
         repository.saveStudent(student);
     }
 
-    public void displayAllStudents() {
-        repository.getAllStudents();
-    }
+    public void displayAllStudents() { repository.getAllStudents(); }
+    public void searchStudent(String id) { repository.getStudentById(id); }
+    public void removeStudent(String id) { repository.deleteStudent(id); }
+    public void generateReport() { repository.exportToTextFile(); }
+    public void displayStats() { repository.getStatistics(); }
 
-    public void searchStudent(String id) {
-        repository.getStudentById(id);
-    }
-
-    public void removeStudent(String id) {
-        repository.deleteStudent(id);
-    }
-
-    // NEW METHOD:
-    public void modifyStudent(String id, int newLevel, double newGpa) {
-        // Simple check before passing to repo
-        if (newGpa < 0.0 || newGpa > 4.0) {
-            System.out.println("[ERROR]: Update failed. GPA must be between 0.0 and 4.0.");
-            return;
+    public String validateStatus(Scanner sc) {
+        while (true) {
+            System.out.print("Status: 1.Active 2.Graduated 3.Leave -> ");
+            if (sc.hasNextInt()) {
+                int c = sc.nextInt(); sc.nextLine();
+                if (c == 1) return "Active";
+                if (c == 2) return "Graduated";
+                if (c == 3) return "On Leave";
+            } else { sc.next(); }
+            System.out.println("Invalid.");
         }
-        repository.updateStudent(id, newLevel, newGpa);
+    }
+
+    public void modifyStudent(String id, int l, double g, String s) {
+        repository.updateStudentFull(id, l, g, s);
     }
 }

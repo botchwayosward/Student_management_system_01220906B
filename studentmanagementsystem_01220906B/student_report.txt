@@ -1,0 +1,12 @@
+UNIVERSITY STUDENT REPORT
+Generated on: 2026-02-21T02:16:35.597588700
+------------------------------------------------------------------
+ID           | NAME                 | PROG            | GPA   | STATUS    
+------------------------------------------------------------------
+01220906B    | Test User            | Computer Science | 3.80  | null      
+ID-443       | Interactive User     | Computer Science | 2.00  | null      
+0122657B     | GETTY BUN            | IT              | 3.40  | null      
+728161       | gare buy             | electrical      | 3.00  | null      
+999          | bag                  | it              | 3.50  | null      
+555          | sat                  | 300             | 3.00  | Graduated 
+3444         | new                  | 300             | 3.00  | Active    
