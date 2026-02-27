@@ -1,17 +1,25 @@
-# Student Management System 🎓
+# Student Management System (SMS)
+**Student ID:** 01220906B  
+**Course:** Object Oriented Programming
+**Year:** 2026
 
-A high-performance, desktop-based management solution built with **JavaFX 21** and **SQLite**. Designed for educational administrators to handle student records, academic tracking, and performance analytics.
+## 📌 Project Overview
+A robust JavaFX application designed for managing student records with integrated SQLite persistence and academic performance analytics.
 
----
+## 🚀 Key Features
+* **Automated Table Initialization:** Database schema is created on the first launch.
+* **Bulk Data Import:** Support for importing student records via CSV.
+* **Academic Analytics:** Real-time flagging of "At-Risk" and "Top Performer" students.
+* **Responsive UI:** Modern design with dynamic scaling support.
 
-## ✨ Key Features
-- **Modern UI:** Catchy aesthetics with a custom CSS-based theme.
-- **Analytics:** Automated "Top Performer" and "At Risk" student tracking.
-- **Data Persistence:** Fully integrated SQLite database.
-- **CSV Support:** Easy import and export of student records.
+## 🛠️ Technical Stack
+* **Language:** Java 17+
+* **Framework:** JavaFX 21
+* **Database:** SQLite
+* **Build Tool:** Maven
 
----
-
-## 👤 Author
-- **Name:** Osward Botchway
-- **Student ID:** 01220906B
+## 📂 Project Structure
+* `com.sms.domain`: Student entity and data models.
+* `com.sms.repository`: Database connection and CRUD operations.
+* `com.sms.service`: Business logic and GPA calculations.
+* `com.sms.util`: CSV helpers and logging utilities.
