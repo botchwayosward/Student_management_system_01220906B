@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox prefHeight="750" prefWidth="1150" xmlns:fx="http://javafx.com/fxml" fx:controller="com.sms.ui.StudentController">
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <MenuBar style="-fx-background-color: #ecf0f1;">
+        <Menu text="File">
+            <MenuItem text="Import Students" onAction="#handleImport"/>
+            <MenuItem text="Export Report" onAction="#handleExport"/>
+        </Menu>
+        <Menu text="Settings">
+            <MenuItem text="GPA Thresholds" onAction="#showSettings"/>
+        </Menu>
+    </MenuBar>
+
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+        <Tab text="📊 DASHBOARD">
+            <HBox spacing="25" style="-fx-background-color: #f0f4f8;" alignment="CENTER">
+                <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+                <VBox spacing="15" prefWidth="380" minWidth="350" styleClass="form-card" HBox.hgrow="NEVER">
+                    <Label text="New Student Registration" style="-fx-font-size: 20; -fx-text-fill: #1a2a6c; -fx-font-weight: bold;"/>
+                    <Separator/>
+                    <TextField fx:id="txtId" promptText="ID Number" prefHeight="35"/>
+                    <TextField fx:id="txtName" promptText="Full Name" prefHeight="35"/>
+                    <TextField fx:id="txtProg" promptText="Programme" prefHeight="35"/>
+                    <TextField fx:id="txtGpa" promptText="Current GPA" prefHeight="35"/>
+                    <TextField fx:id="txtEmail" promptText="Email Address" prefHeight="35"/>
+                    <ComboBox fx:id="comboLevel" promptText="Select Level" maxWidth="Infinity" prefHeight="35"/>
+                    <ComboBox fx:id="comboStatus" promptText="Account Status" maxWidth="Infinity" prefHeight="35"/>
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <Button text="SAVE STUDENT" onAction="#handleSave" maxWidth="Infinity" styleClass="btn-save" prefHeight="50"/>
+                    <HBox spacing="10">
+                        <Button text="Clear" onAction="#clearFields" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-radius: 30; -fx-padding: 10;"/>
+                        <Button text="Delete" onAction="#handleDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-radius: 30; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10;"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="15" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 35;">
+                        <Label text="🔎" style="-fx-font-size: 18;"/>
+                        <TextField fx:id="txtSearch" promptText="Search student database..." HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                    </HBox>
+                    <TableView fx:id="tblStudents" VBox.vgrow="ALWAYS" style="-fx-background-radius: 15;">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="colId" text="ID" minWidth="80"/>
+                            <TableColumn fx:id="colName" text="STUDENT NAME" minWidth="200"/>
+                            <TableColumn fx:id="colProg" text="PROGRAMME" minWidth="150"/>
+                            <TableColumn fx:id="colGpa" text="GPA" minWidth="80"/>
+                            <TableColumn fx:id="colStatus" text="STATUS" minWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </Tab>
+
+        <Tab text="📈 ANALYTICS">
+            <VBox spacing="0" styleClass="background-analytics" alignment="TOP_CENTER">
+                <VBox alignment="CENTER" spacing="10" prefHeight="120" style="-fx-background-color: rgba(26, 42, 108, 0.05);">
+                    <Label text="Academic Performance Insights" style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: #1a2a6c;"/>
+                    <Label text="Automated student tracking based on real-time GPA data" style="-fx-text-fill: #7f8c8d; -fx-font-size: 14;"/>
+                </VBox>
+
+                <HBox spacing="40" VBox.vgrow="ALWAYS" alignment="CENTER">
+                    <padding><Insets top="30" right="50" bottom="30" left="50"/></padding>
+
+                    <VBox spacing="20" HBox.hgrow="ALWAYS" styleClass="card-top" maxWidth="500">
+                        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="⭐" style="-fx-font-size: 24;"/>
+                            <Label text="TOP PERFORMERS" styleClass="card-label"/>
+                        </HBox>
+                        <ListView fx:id="listTopPerformers" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+
+                    <VBox spacing="20" HBox.hgrow="ALWAYS" styleClass="card-risk" maxWidth="500">
+                        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="⚠️" style="-fx-font-size: 24;"/>
+                            <Label text="AT RISK STUDENTS" styleClass="card-label"/>
+                        </HBox>
+                        <ListView fx:id="listAtRisk" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </HBox>
+
+                <HBox alignment="CENTER" prefHeight="100">
+                    <Button text="REFRESH SYSTEM DATA" onAction="#refreshAnalytics" prefHeight="55" prefWidth="350"
+                            style="-fx-background-color: #1a2a6c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 35; -fx-font-size: 14;"/>
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+
+    <HBox spacing="25" alignment="CENTER_LEFT" styleClass="status-bar" prefHeight="45">
+        <padding><Insets left="25" right="25"/></padding>
+        <Label text="● DATABASE CONNECTED" style="-fx-text-fill: #00ff88; -fx-font-size: 11; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="ENROLLED:" style="-fx-text-fill: #bdc3c7;"/>
+        <Label fx:id="lblTotal" text="0" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14;"/>
+        <Label text="AVERAGE GPA:" style="-fx-text-fill: #bdc3c7;"/>
+        <Label fx:id="lblAvgGpa" text="0.00" style="-fx-text-fill: #fdbb2d; -fx-font-weight: bold; -fx-font-size: 14;"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,78 @@
+/* Main Application Window Background */
+.root {
+    -fx-font-family: "Segoe UI Semibold", "Segoe UI", sans-serif;
+    -fx-background-color: #f0f4f8;
+}
+
+/* Tab Header */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+.tab {
+    -fx-background-color: transparent;
+    -fx-padding: 10 25 10 25;
+}
+
+.tab:selected {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-border-color: white;
+    -fx-border-width: 0 0 3 0;
+}
+
+.tab .tab-label {
+    -fx-text-fill: white;
+}
+
+/* DASHBOARD SPECIFIC */
+.form-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.2, 0, 10);
+}
+
+/* ANALYTICS SPECIFIC - The "Catchy" Background */
+.background-analytics {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #e3f2fd, #fce4ec);
+}
+
+.card-top {
+    -fx-background-color: linear-gradient(to bottom right, #00b09b, #96c93d);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,176,155,0.4), 15, 0, 0, 10);
+}
+
+.card-risk {
+    -fx-background-color: linear-gradient(to bottom right, #ed213a, #93291e);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(237,33,58,0.4), 15, 0, 0, 10);
+}
+
+.card-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+/* ListView inside cards */
+.list-view {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+}
+
+/* Buttons */
+.btn-save {
+    -fx-background-color: linear-gradient(to right, #00b09b, #96c93d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 30;
+}
+
+.status-bar {
+    -fx-background-color: #1a2a6c;
+}
